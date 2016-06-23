@@ -19,12 +19,15 @@ public class Player {
     private Vector2 mPosition;
     private Vector2 mVelocity;
     private JumpState mJumpState;
+    private Facing mDirection;
     private long mJumpStartTime;
-    private Texture mTexture;
+    private Texture mTextureRight;
+    private Texture mTextureLeft;
 
     public Player(Viewport viewport) {
         mViewport = viewport;
-        mTexture = new Texture("player-right.png");
+        mTextureRight = new Texture("player-right.png");
+        mTextureLeft = new Texture("player-left.png");
     }
 
     public void init() {
@@ -57,14 +60,18 @@ public class Player {
     }
 
     public void render(SpriteBatch batch) {
-        batch.draw(mTexture, mPosition.x, mPosition.y);
+        batch.draw(
+                mDirection == Facing.LEFT ? mTextureLeft : mTextureRight,
+                mPosition.x, mPosition.y);
     }
 
     private void moveLeft(float delta) {
+        mDirection = Facing.LEFT;
         mPosition.x -= delta * Constants.PLAYER_WALK_SPEED;
     }
 
     private void moveRight(float delta) {
+        mDirection = Facing.RIGHT;
         mPosition.x += delta * Constants.PLAYER_WALK_SPEED;
     }
 
@@ -85,5 +92,10 @@ public class Player {
         GROUNDED, // No vertical velocity. Player is on a ground.
         JUMPING,  // Positive up velocity. Can stay in this state for up to PLAYER_MAX_JUMP_DURATION.
         FALLING   // Negative vertical velocity. Changes to GROUNDED when player reaches ground.
+    }
+
+    enum Facing {
+        LEFT,
+        RIGHT
     }
 }
