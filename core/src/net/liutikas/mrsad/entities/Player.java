@@ -15,11 +15,14 @@ import net.liutikas.mrsad.Constants;
  * The main game character the the player will be controlling.
  */
 public class Player {
+    private static final int FACING_LEFT = 0;
+    private static final int FACING_RIGHT = 1;
+
     private final Viewport mViewport;
     private Vector2 mPosition;
     private Vector2 mVelocity;
     private JumpState mJumpState;
-    private Facing mDirection;
+    private int mDirection;
     private long mJumpStartTime;
     private Texture mTextureRight;
     private Texture mTextureLeft;
@@ -61,17 +64,17 @@ public class Player {
 
     public void render(SpriteBatch batch) {
         batch.draw(
-                mDirection == Facing.LEFT ? mTextureLeft : mTextureRight,
+                mDirection == FACING_LEFT ? mTextureLeft : mTextureRight,
                 mPosition.x, mPosition.y);
     }
 
     private void moveLeft(float delta) {
-        mDirection = Facing.LEFT;
+        mDirection = FACING_LEFT;
         mPosition.x -= delta * Constants.PLAYER_WALK_SPEED;
     }
 
     private void moveRight(float delta) {
-        mDirection = Facing.RIGHT;
+        mDirection = FACING_RIGHT;
         mPosition.x += delta * Constants.PLAYER_WALK_SPEED;
     }
 
@@ -92,10 +95,5 @@ public class Player {
         GROUNDED, // No vertical velocity. Player is on a ground.
         JUMPING,  // Positive up velocity. Can stay in this state for up to PLAYER_MAX_JUMP_DURATION.
         FALLING   // Negative vertical velocity. Changes to GROUNDED when player reaches ground.
-    }
-
-    enum Facing {
-        LEFT,
-        RIGHT
     }
 }
