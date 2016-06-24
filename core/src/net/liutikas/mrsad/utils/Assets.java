@@ -40,10 +40,14 @@ public class Assets implements Disposable, AssetErrorListener {
     public static class PlayerAssets {
         public final AtlasRegion standingLeft;
         public final AtlasRegion standingRight;
+        public final AtlasRegion jumpingLeft;
+        public final AtlasRegion jumpingRight;
 
         public PlayerAssets(TextureAtlas atlas) {
             standingLeft = atlas.findRegion(Constants.STANDING_LEFT);
             standingRight = atlas.findRegion(Constants.STANDING_RIGHT);
+            jumpingLeft = atlas.findRegion(Constants.JUMPING_LEFT);
+            jumpingRight = atlas.findRegion(Constants.JUMPING_RIGHT);
         }
     }
 

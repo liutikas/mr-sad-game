@@ -19,4 +19,6 @@ public class Constants {
     public static final int PLATFORM_EDGE = 10;
     public static final String STANDING_LEFT = "player-left";
     public static final String STANDING_RIGHT = "player-right";
+    public static final String JUMPING_LEFT = "player-jumping-left";
+    public static final String JUMPING_RIGHT = "player-jumping-right";
 }

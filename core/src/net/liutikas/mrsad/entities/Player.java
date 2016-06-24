@@ -62,8 +62,12 @@ public class Player {
 
     public void render(SpriteBatch batch) {
         TextureAtlas.AtlasRegion region = (mDirection == FACING_LEFT)
-                ? Assets.instance.playerAssets.standingLeft
-                : Assets.instance.playerAssets.standingRight;
+                ? (mJumpState == JumpState.GROUNDED)
+                        ? Assets.instance.playerAssets.standingLeft
+                        : Assets.instance.playerAssets.jumpingLeft
+                : (mJumpState == JumpState.GROUNDED)
+                        ? Assets.instance.playerAssets.standingRight
+                        : Assets.instance.playerAssets.jumpingRight;
 
         batch.draw(
                 region.getTexture(),
