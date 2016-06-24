@@ -14,6 +14,7 @@ import net.liutikas.mrsad.entities.Player;
 public class GameScreen implements Screen {
     private ExtendViewport mViewport;
     private Player mPlayer;
+    //private FollowCamera mFollowCamera;
 
     SpriteBatch batch;
 
@@ -22,14 +23,19 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         mViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         mPlayer = new Player(mViewport);
+        //mFollowCamera = new FollowCamera(mViewport.getCamera(), mPlayer);
     }
 
     @Override
     public void render(float delta) {
         mPlayer.update(delta);
+        //mFollowCamera.update();
 
         mViewport.apply();
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(
+                Constants.WORLD_COLOR.r,
+                Constants.WORLD_COLOR.g,
+                Constants.WORLD_COLOR.b, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(mViewport.getCamera().combined);
         batch.begin();
@@ -44,14 +50,10 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
     public void hide() {
@@ -59,6 +61,5 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void dispose() {
-    }
+    public void dispose() {}
 }

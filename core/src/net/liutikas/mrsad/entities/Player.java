@@ -68,6 +68,14 @@ public class Player {
                 mPosition.x, mPosition.y);
     }
 
+    public float getPositionX() {
+        return mPosition.x;
+    }
+
+    public float getPositionY() {
+        return mPosition.y;
+    }
+
     private void moveLeft(float delta) {
         mDirection = FACING_LEFT;
         mPosition.x -= delta * Constants.PLAYER_WALK_SPEED;
