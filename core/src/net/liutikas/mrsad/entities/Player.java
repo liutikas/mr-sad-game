@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.liutikas.mrsad.Constants;
+import net.liutikas.mrsad.utils.Assets;
 
 /**
  * The main game character the the player will be controlling.
@@ -29,8 +30,8 @@ public class Player {
 
     public Player(Viewport viewport) {
         mViewport = viewport;
-        mTextureRight = new Texture("player-right.png");
-        mTextureLeft = new Texture("player-left.png");
+        mTextureRight = Assets.instance.playerAssets.standingRight;
+        mTextureLeft = Assets.instance.playerAssets.standingLeft;
     }
 
     public void init() {

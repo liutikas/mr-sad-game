@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
+import net.liutikas.mrsad.entities.Platform;
 import net.liutikas.mrsad.entities.Player;
+import net.liutikas.mrsad.utils.Assets;
+import net.liutikas.mrsad.utils.FollowCamera;
 
 /**
  * The main game screen responsible for handling the game play.
@@ -14,22 +17,25 @@ import net.liutikas.mrsad.entities.Player;
 public class GameScreen implements Screen {
     private ExtendViewport mViewport;
     private Player mPlayer;
-    //private FollowCamera mFollowCamera;
+    private Platform mPlatform;
+    private FollowCamera mFollowCamera;
 
     SpriteBatch batch;
 
     @Override
     public void show() {
+        Assets.instance.init();
         batch = new SpriteBatch();
         mViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         mPlayer = new Player(mViewport);
-        //mFollowCamera = new FollowCamera(mViewport.getCamera(), mPlayer);
+        mPlatform = new Platform();
+        mFollowCamera = new FollowCamera(mViewport.getCamera(), mPlayer);
     }
 
     @Override
     public void render(float delta) {
         mPlayer.update(delta);
-        //mFollowCamera.update();
+        mFollowCamera.update();
 
         mViewport.apply();
         Gdx.gl.glClearColor(
@@ -39,6 +45,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(mViewport.getCamera().combined);
         batch.begin();
+        mPlatform.render(batch);
         mPlayer.render(batch);
         batch.end();
     }
@@ -47,6 +54,10 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         mViewport.update(width, height, true);
         mPlayer.init();
+        mPlatform.init(0,
+                -mViewport.getWorldHeight() / 4,
+                mViewport.getWorldWidth(),
+                mViewport.getWorldHeight() / 4);
     }
 
     @Override
