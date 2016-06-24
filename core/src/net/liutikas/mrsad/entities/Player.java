@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -25,13 +26,9 @@ public class Player {
     private JumpState mJumpState;
     private int mDirection;
     private long mJumpStartTime;
-    private Texture mTextureRight;
-    private Texture mTextureLeft;
 
     public Player(Viewport viewport) {
         mViewport = viewport;
-        mTextureRight = Assets.instance.playerAssets.standingRight;
-        mTextureLeft = Assets.instance.playerAssets.standingLeft;
     }
 
     public void init() {
@@ -64,9 +61,27 @@ public class Player {
     }
 
     public void render(SpriteBatch batch) {
+        TextureAtlas.AtlasRegion region = (mDirection == FACING_LEFT)
+                ? Assets.instance.playerAssets.standingLeft
+                : Assets.instance.playerAssets.standingRight;
+
         batch.draw(
-                mDirection == FACING_LEFT ? mTextureLeft : mTextureRight,
-                mPosition.x, mPosition.y);
+                region.getTexture(),
+                mPosition.x,
+                mPosition.y,
+                0,
+                0,
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                1,
+                1,
+                0,
+                region.getRegionX(),
+                region.getRegionY(),
+                region.getRegionWidth(),
+                region.getRegionHeight(),
+                false,
+                false);
     }
 
     public float getPositionX() {

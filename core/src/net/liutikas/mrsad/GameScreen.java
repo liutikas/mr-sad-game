@@ -2,6 +2,7 @@ package net.liutikas.mrsad;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -24,7 +25,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-        Assets.instance.init();
+        AssetManager assetManager = new AssetManager();
+        Assets.instance.init(assetManager);
         batch = new SpriteBatch();
         mViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         mPlayer = new Player(mViewport);
@@ -67,10 +69,11 @@ public class GameScreen implements Screen {
     public void resume() {}
 
     @Override
-    public void hide() {
-        batch.dispose();
-    }
+    public void hide() {}
 
     @Override
-    public void dispose() {}
+    public void dispose() {
+        Assets.instance.dispose();
+        batch.dispose();
+    }
 }

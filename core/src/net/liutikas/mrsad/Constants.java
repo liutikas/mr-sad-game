@@ -14,8 +14,9 @@ public class Constants {
     public static final float GRAVITY_ACCELERATION = 500f;
 
     // Assets constants
-    public static final String PLATFORM_BACKGROUND = "platform.png";
+    public static final String TEXTURE_ATLAS = "images/mrsad.pack.atlas";
+    public static final String PLATFORM_BACKGROUND = "platform";
     public static final int PLATFORM_EDGE = 10;
-    public static final String STANDING_LEFT = "player-left.png";
-    public static final String STANDING_RIGHT = "player-right.png";
+    public static final String STANDING_LEFT = "player-left";
+    public static final String STANDING_RIGHT = "player-right";
 }
