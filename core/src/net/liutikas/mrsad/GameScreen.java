@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        mPlayer.update(delta);
+        mPlayer.update(delta, mPlatforms.platforms);
         mFollowCamera.update();
 
         mViewport.apply();

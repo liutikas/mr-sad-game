@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -21,6 +22,7 @@ public class Player {
     private static final int FACING_RIGHT = 1;
 
     private final Viewport mViewport;
+    private Vector2 mLastFramePosition;
     private Vector2 mPosition;
     private Vector2 mVelocity;
     private JumpState mJumpState;
@@ -32,12 +34,15 @@ public class Player {
     }
 
     public void init() {
+        mLastFramePosition = new Vector2(0, 0);
         mPosition = new Vector2(mViewport.getWorldWidth() / 2, 40);
         mVelocity = new Vector2(0, 0);
         mJumpState = JumpState.FALLING;
     }
 
-    public void update(float delta) {
+    public void update(float delta, Array<Platform> platforms) {
+        mLastFramePosition.set(mPosition);
+
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta);
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
@@ -53,10 +58,10 @@ public class Player {
                     && mJumpState == JumpState.JUMPING) {
                 mPosition.y += delta * Constants.PLAYER_JUMP_SPEED;
             } else {
-                continueFalling(delta);
+                continueFalling(delta, platforms);
             }
         } else if (mPosition.y > 0) {
-            continueFalling(delta);
+            continueFalling(delta, platforms);
         }
     }
 
@@ -106,7 +111,7 @@ public class Player {
         mPosition.x += delta * Constants.PLAYER_WALK_SPEED;
     }
 
-    private void continueFalling(float delta) {
+    private void continueFalling(float delta, Array<Platform> platforms) {
         if (mJumpState == JumpState.JUMPING) {
             mJumpState = JumpState.FALLING;
         }
@@ -116,6 +121,21 @@ public class Player {
             mPosition.y = 0f;
             mVelocity.y = 0f;
             mJumpState = JumpState.GROUNDED;
+        }
+        for (int i = 0; i < platforms.size; i++) {
+            Platform platform = platforms.get(i);
+            if (mLastFramePosition.y >= platform.top && mPosition.y <= platform.top) {
+                float leftFoot = mPosition.x;
+                float rightFoot = mPosition.x + 20f;
+                boolean leftFootIn = leftFoot > platform.left && leftFoot < platform.right;
+                boolean rightFootIn = rightFoot > platform.left && rightFoot < platform.right;
+                if (leftFootIn || rightFootIn) {
+                    mPosition.y = platform.top;
+                    mVelocity.y = 0f;
+                    mJumpState = JumpState.GROUNDED;
+                    break;
+                }
+            }
         }
     }
 
