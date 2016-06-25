@@ -56,10 +56,7 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         mViewport.update(width, height, true);
         mPlayer.init();
-        mPlatform.init(0,
-                -mViewport.getWorldHeight() / 4,
-                mViewport.getWorldWidth(),
-                mViewport.getWorldHeight() / 4);
+        mPlatform.init(0, 0, mViewport.getWorldWidth(), mViewport.getWorldHeight() / 4);
     }
 
     @Override

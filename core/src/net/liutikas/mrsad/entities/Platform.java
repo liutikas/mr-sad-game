@@ -2,7 +2,6 @@ package net.liutikas.mrsad.entities;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 
 import net.liutikas.mrsad.utils.Assets;
 
@@ -10,24 +9,28 @@ import net.liutikas.mrsad.utils.Assets;
  * A simple static single platform.
  */
 public class Platform {
-    private float mX;
-    private float mY;
-    private float mWidth;
-    private float mHeight;
+    float top;
+    float bottom;
+    float left;
+    float right;
+    float width;
+    float height;
     private NinePatch mNinePatch;
 
     public Platform() {
         mNinePatch = Assets.instance.platformAssets.platformBackground;
     }
 
-    public void init(float x, float y, float width, float height) {
-        mX = x;
-        mY = y;
-        mWidth = width;
-        mHeight = height;
+    public void init(float left, float top, float width, float height) {
+        this.top = top;
+        this.left = left;
+        this.bottom = top - height;
+        this.right = left + width;
+        this.height = height;
+        this.width = width;
     }
 
     public void render(SpriteBatch batch) {
-        mNinePatch.draw(batch, mX, mY, mWidth, mHeight);
+        mNinePatch.draw(batch, left, bottom, width, height);
     }
 }
