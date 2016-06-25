@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import net.liutikas.mrsad.entities.Platform;
+import net.liutikas.mrsad.entities.Platforms;
 import net.liutikas.mrsad.entities.Player;
 import net.liutikas.mrsad.utils.Assets;
 import net.liutikas.mrsad.utils.FollowCamera;
@@ -18,7 +19,7 @@ import net.liutikas.mrsad.utils.FollowCamera;
 public class GameScreen implements Screen {
     private ExtendViewport mViewport;
     private Player mPlayer;
-    private Platform mPlatform;
+    private Platforms mPlatforms;
     private FollowCamera mFollowCamera;
 
     SpriteBatch batch;
@@ -30,7 +31,7 @@ public class GameScreen implements Screen {
         batch = new SpriteBatch();
         mViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
         mPlayer = new Player(mViewport);
-        mPlatform = new Platform();
+        mPlatforms = new Platforms(mViewport);
         mFollowCamera = new FollowCamera(mViewport.getCamera(), mPlayer);
     }
 
@@ -47,7 +48,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setProjectionMatrix(mViewport.getCamera().combined);
         batch.begin();
-        mPlatform.render(batch);
+        mPlatforms.render(batch);
         mPlayer.render(batch);
         batch.end();
     }
@@ -56,7 +57,7 @@ public class GameScreen implements Screen {
     public void resize(int width, int height) {
         mViewport.update(width, height, true);
         mPlayer.init();
-        mPlatform.init(0, 0, mViewport.getWorldWidth(), mViewport.getWorldHeight() / 4);
+        mPlatforms.init();
     }
 
     @Override
