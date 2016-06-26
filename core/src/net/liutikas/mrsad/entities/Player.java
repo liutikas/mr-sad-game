@@ -51,12 +51,22 @@ public class Player {
         mLastFramePosition.set(mPosition);
         boolean jumping = false;
         if (Gdx.input.isTouched()) {
-            if (Gdx.input.getY() < mViewport.getScreenHeight() / 2) {
-                jumping = true;
-            } else if (Gdx.input.getX() < mViewport.getScreenWidth() / 2) {
-                moveLeft(delta);
-            } else {
-                moveRight(delta);
+            boolean walked = false;
+            for (int i = 0; i < 20; i++) {
+                if (!Gdx.input.isTouched(i)) continue;
+                if (Gdx.input.getY(i) < mViewport.getScreenHeight() / 2) {
+                    jumping = true;
+                } else {
+                    if (!walked) {
+                        if (Gdx.input.getX(i) < mViewport.getScreenWidth() / 2) {
+                            moveLeft(delta);
+                            walked = true;
+                        } else {
+                            moveRight(delta);
+                            walked = true;
+                        }
+                    }
+                }
             }
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta);
