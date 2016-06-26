@@ -23,4 +23,11 @@ public class Constants {
     public static final String STANDING_RIGHT = "player-right";
     public static final String JUMPING_LEFT = "player-jumping-left";
     public static final String JUMPING_RIGHT = "player-jumping-right";
+    public static final float WALK_LOOP_DURATION = 0.15f;
+    public static final String WALKING_RIGHT_1 = "player-walking-right-1";
+    public static final String WALKING_RIGHT_2 = "player-walking-right-2";
+    public static final String WALKING_RIGHT_3 = "player-walking-right-3";
+    public static final String WALKING_LEFT_1 = "player-walking-left-1";
+    public static final String WALKING_LEFT_2 = "player-walking-left-2";
+    public static final String WALKING_LEFT_3 = "player-walking-left-3";
 }

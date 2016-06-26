@@ -5,9 +5,11 @@ import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetErrorListener;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 import net.liutikas.mrsad.Constants;
@@ -43,11 +45,34 @@ public class Assets implements Disposable, AssetErrorListener {
         public final AtlasRegion jumpingLeft;
         public final AtlasRegion jumpingRight;
 
+        public final Animation walkingLeftAnimation;
+        public final Animation walkingRightAnimation;
+
         public PlayerAssets(TextureAtlas atlas) {
             standingLeft = atlas.findRegion(Constants.STANDING_LEFT);
             standingRight = atlas.findRegion(Constants.STANDING_RIGHT);
             jumpingLeft = atlas.findRegion(Constants.JUMPING_LEFT);
             jumpingRight = atlas.findRegion(Constants.JUMPING_RIGHT);
+
+            Array<AtlasRegion> walkingRightFrames = new Array<AtlasRegion>();
+            walkingRightFrames.add(atlas.findRegion(Constants.WALKING_RIGHT_2));
+            walkingRightFrames.add(atlas.findRegion(Constants.WALKING_RIGHT_1));
+            walkingRightFrames.add(atlas.findRegion(Constants.WALKING_RIGHT_2));
+            walkingRightFrames.add(atlas.findRegion(Constants.WALKING_RIGHT_3));
+            walkingRightAnimation = new Animation(
+                    Constants.WALK_LOOP_DURATION,
+                    walkingRightFrames,
+                    Animation.PlayMode.LOOP);
+
+            Array<AtlasRegion> walkingLeftFrames = new Array<AtlasRegion>();
+            walkingLeftFrames.add(atlas.findRegion(Constants.WALKING_LEFT_2));
+            walkingLeftFrames.add(atlas.findRegion(Constants.WALKING_LEFT_1));
+            walkingLeftFrames.add(atlas.findRegion(Constants.WALKING_LEFT_2));
+            walkingLeftFrames.add(atlas.findRegion(Constants.WALKING_LEFT_3));
+            walkingLeftAnimation = new Animation(
+                    Constants.WALK_LOOP_DURATION,
+                    walkingLeftFrames,
+                    Animation.PlayMode.LOOP);
         }
     }
 

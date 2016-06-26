@@ -1,6 +1,6 @@
 
 mrsad.pack.png
-size: 256,64
+size: 512,64
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -35,6 +35,48 @@ player-left
 player-right
   rotate: false
   xy: 138, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-walking-left-1
+  rotate: false
+  xy: 172, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-walking-left-2
+  rotate: false
+  xy: 206, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-walking-left-3
+  rotate: false
+  xy: 240, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-walking-right-1
+  rotate: false
+  xy: 274, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-walking-right-2
+  rotate: false
+  xy: 308, 2
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+player-walking-right-3
+  rotate: false
+  xy: 342, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

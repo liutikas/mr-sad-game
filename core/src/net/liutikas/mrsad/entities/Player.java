@@ -2,9 +2,8 @@ package net.liutikas.mrsad.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
@@ -21,6 +20,9 @@ public class Player {
     private static final int FACING_LEFT = 0;
     private static final int FACING_RIGHT = 1;
 
+    private static final int STANDING = 0;
+    private static final int WALKING = 1;
+
     private final Viewport mViewport;
     private Vector2 mLastFramePosition;
     // Position of the middle of player's feet.
@@ -28,6 +30,8 @@ public class Player {
     private Vector2 mVelocity;
     private JumpState mJumpState;
     private int mDirection;
+    private int mWalkingState;
+    private long mWalkStartTime;
     private long mJumpStartTime;
 
     public Player(Viewport viewport) {
@@ -39,6 +43,8 @@ public class Player {
         mPosition = new Vector2(mViewport.getWorldWidth() / 2, 40);
         mVelocity = new Vector2(0, 0);
         mJumpState = JumpState.FALLING;
+        mDirection = FACING_RIGHT;
+        mWalkingState = STANDING;
     }
 
     public void update(float delta, Array<Platform> platforms) {
@@ -48,6 +54,8 @@ public class Player {
             moveLeft(delta);
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight(delta);
+        } else {
+            mWalkingState = STANDING;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (mJumpState == JumpState.GROUNDED) {
@@ -67,13 +75,34 @@ public class Player {
     }
 
     public void render(SpriteBatch batch) {
-        TextureAtlas.AtlasRegion region = (mDirection == FACING_LEFT)
-                ? (mJumpState == JumpState.GROUNDED)
-                        ? Assets.instance.playerAssets.standingLeft
-                        : Assets.instance.playerAssets.jumpingLeft
-                : (mJumpState == JumpState.GROUNDED)
-                        ? Assets.instance.playerAssets.standingRight
-                        : Assets.instance.playerAssets.jumpingRight;
+        TextureRegion region;
+        if (mDirection == FACING_LEFT) {
+            if (mJumpState == JumpState.GROUNDED) {
+                if (mWalkingState == STANDING) {
+                    region = Assets.instance.playerAssets.standingLeft;
+                } else {
+                    float walkTimeSeconds =
+                            MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime);
+                    region = Assets.instance.playerAssets.walkingLeftAnimation.getKeyFrame(
+                            walkTimeSeconds);
+                }
+            } else {
+                region = Assets.instance.playerAssets.jumpingLeft;
+            }
+        } else {
+            if (mJumpState == JumpState.GROUNDED) {
+                if (mWalkingState == STANDING) {
+                    region = Assets.instance.playerAssets.standingRight;
+                } else {
+                    float walkTimeSeconds =
+                            MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime);
+                    region = Assets.instance.playerAssets.walkingRightAnimation.getKeyFrame(
+                            walkTimeSeconds);
+                }
+            } else {
+                region = Assets.instance.playerAssets.jumpingRight;
+            }
+        }
 
         batch.draw(
                 region.getTexture(),
@@ -104,11 +133,19 @@ public class Player {
 
     private void moveLeft(float delta) {
         mDirection = FACING_LEFT;
+        if (mJumpState == JumpState.GROUNDED && mWalkingState == STANDING) {
+            mWalkStartTime = TimeUtils.nanoTime();
+            mWalkingState = WALKING;
+        }
         mPosition.x -= delta * Constants.PLAYER_WALK_SPEED;
     }
 
     private void moveRight(float delta) {
         mDirection = FACING_RIGHT;
+        if (mJumpState == JumpState.GROUNDED && mWalkingState == STANDING) {
+            mWalkStartTime = TimeUtils.nanoTime();
+            mWalkingState = WALKING;
+        }
         mPosition.x += delta * Constants.PLAYER_WALK_SPEED;
     }
 
