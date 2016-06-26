@@ -87,7 +87,7 @@ public class Player {
             } else {
                 continueFalling(delta, platforms);
             }
-        } else if (mPosition.y > 0) {
+        } else {
             continueFalling(delta, platforms);
         }
     }
@@ -168,16 +168,9 @@ public class Player {
     }
 
     private void continueFalling(float delta, Array<Platform> platforms) {
-        if (mJumpState == JumpState.JUMPING) {
-            mJumpState = JumpState.FALLING;
-        }
+        mJumpState = JumpState.FALLING;
         mVelocity.y -= delta * Constants.GRAVITY_ACCELERATION;
         mPosition.y += delta * mVelocity.y;
-        if (mPosition.y <= 0) {
-            mPosition.y = 0f;
-            mVelocity.y = 0f;
-            mJumpState = JumpState.GROUNDED;
-        }
         for (int i = 0; i < platforms.size; i++) {
             Platform platform = platforms.get(i);
             if (mLastFramePosition.y >= platform.top && mPosition.y <= platform.top) {
@@ -192,6 +185,9 @@ public class Player {
                     break;
                 }
             }
+        }
+        if (mPosition.y < Constants.WORLD_DEATH_PLANE) {
+            init();
         }
     }
 

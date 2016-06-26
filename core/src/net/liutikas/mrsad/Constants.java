@@ -6,6 +6,7 @@ public class Constants {
     // World constants
     public static final float WORLD_SIZE = 128f;
     public static final Color WORLD_COLOR = Color.SKY;
+    public static final float WORLD_DEATH_PLANE = -128f;
 
     // Player constants
     public static final float PLAYER_WALK_SPEED = 80f;

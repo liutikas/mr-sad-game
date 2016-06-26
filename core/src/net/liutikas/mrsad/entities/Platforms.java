@@ -32,6 +32,10 @@ public class Platforms {
         platform3.init(3 * mViewport.getWorldWidth() / 4, mViewport.getWorldHeight() / 2,
                 mViewport.getWorldWidth() / 4, mViewport.getWorldHeight() / 6);
         platforms.add(platform3);
+        Platform platform4 = new Platform();
+        platform4.init(5 * mViewport.getWorldWidth() / 4, mViewport.getWorldHeight() / 2,
+                mViewport.getWorldWidth() / 4, mViewport.getWorldHeight() / 6);
+        platforms.add(platform4);
     }
 
     public void render(SpriteBatch batch) {
