@@ -23,6 +23,7 @@ public class Player {
 
     private final Viewport mViewport;
     private Vector2 mLastFramePosition;
+    // Position of the middle of player's feet.
     private Vector2 mPosition;
     private Vector2 mVelocity;
     private JumpState mJumpState;
@@ -76,7 +77,7 @@ public class Player {
 
         batch.draw(
                 region.getTexture(),
-                mPosition.x,
+                mPosition.x - Constants.PLAYER_TEXTURE_WIDTH / 2,
                 mPosition.y,
                 0,
                 0,
@@ -125,8 +126,8 @@ public class Player {
         for (int i = 0; i < platforms.size; i++) {
             Platform platform = platforms.get(i);
             if (mLastFramePosition.y >= platform.top && mPosition.y <= platform.top) {
-                float leftFoot = mPosition.x;
-                float rightFoot = mPosition.x + 20f;
+                float leftFoot = mPosition.x - Constants.PLAYER_FEET_WIDTH / 2;
+                float rightFoot = mPosition.x + Constants.PLAYER_FEET_WIDTH / 2;
                 boolean leftFootIn = leftFoot > platform.left && leftFoot < platform.right;
                 boolean rightFootIn = rightFoot > platform.left && rightFoot < platform.right;
                 if (leftFootIn || rightFootIn) {

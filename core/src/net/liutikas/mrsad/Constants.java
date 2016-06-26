@@ -11,6 +11,8 @@ public class Constants {
     public static final float PLAYER_WALK_SPEED = 80f;
     public static final float PLAYER_JUMP_SPEED = 120f;
     public static final float PLAYER_MAX_JUMP_DURATION = 0.3f;
+    public static final float PLAYER_TEXTURE_WIDTH = 32f;
+    public static final float PLAYER_FEET_WIDTH = 15f;
     public static final float GRAVITY_ACCELERATION = 500f;
 
     // Assets constants
