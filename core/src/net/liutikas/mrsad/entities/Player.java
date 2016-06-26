@@ -50,7 +50,13 @@ public class Player {
     public void update(float delta, Array<Platform> platforms) {
         mLastFramePosition.set(mPosition);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if (Gdx.input.isTouched()) {
+            if (Gdx.input.getX() < mViewport.getScreenWidth() / 2) {
+                moveLeft(delta);
+            } else {
+                moveRight(delta);
+            }
+        } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta);
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             moveRight(delta);
