@@ -49,9 +49,11 @@ public class Player {
 
     public void update(float delta, Array<Platform> platforms) {
         mLastFramePosition.set(mPosition);
-
+        boolean jumping = false;
         if (Gdx.input.isTouched()) {
-            if (Gdx.input.getX() < mViewport.getScreenWidth() / 2) {
+            if (Gdx.input.getY() < mViewport.getScreenHeight() / 2) {
+                jumping = true;
+            } else if (Gdx.input.getX() < mViewport.getScreenWidth() / 2) {
                 moveLeft(delta);
             } else {
                 moveRight(delta);
@@ -63,7 +65,7 @@ public class Player {
         } else {
             mWalkingState = STANDING;
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if (jumping || Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             if (mJumpState == JumpState.GROUNDED) {
                 mJumpState = JumpState.JUMPING;
                 mJumpStartTime = TimeUtils.nanoTime();
