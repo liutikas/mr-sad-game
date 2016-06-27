@@ -12,6 +12,7 @@ import net.liutikas.mrsad.entities.Platforms;
 import net.liutikas.mrsad.entities.Player;
 import net.liutikas.mrsad.utils.Assets;
 import net.liutikas.mrsad.utils.FollowCamera;
+import net.liutikas.mrsad.utils.LevelLoader;
 
 /**
  * The main game screen responsible for handling the game play.

@@ -31,4 +31,14 @@ public class Constants {
     public static final String WALKING_LEFT_1 = "player-walking-left-1";
     public static final String WALKING_LEFT_2 = "player-walking-left-2";
     public static final String WALKING_LEFT_3 = "player-walking-left-3";
+
+    // Level Loading
+    public static final String LEVEL_COMPOSITE = "composite";
+    public static final String LEVEL_9PATCHES = "sImage9patchs";
+    public static final String LEVEL_ERROR_MESSAGE = "There was a problem loading the level.";
+    public static final String LEVEL_X_KEY = "x";
+    public static final String LEVEL_Y_KEY = "y";
+    public static final String LEVEL_WIDTH_KEY = "width";
+    public static final String LEVEL_HEIGHT_KEY = "height";
+    public static final String LEVEL_1 = "levels/Level1.dt";
 }
