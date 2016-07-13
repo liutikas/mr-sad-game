@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import net.liutikas.mrsad.Constants;
 import net.liutikas.mrsad.utils.Assets;
+import net.liutikas.mrsad.utils.GameInputProcessor;
 
 /**
  * The main game character the the player will be controlling.
@@ -24,6 +25,8 @@ public class Player {
     private static final int WALKING = 1;
 
     private final Viewport mViewport;
+    private final GameInputProcessor mInputProcessor;
+
     private Vector2 mLastFramePosition;
     // Position of the middle of player's feet.
     private Vector2 mPosition;
@@ -34,8 +37,9 @@ public class Player {
     private long mWalkStartTime;
     private long mJumpStartTime;
 
-    public Player(Viewport viewport) {
+    public Player(Viewport viewport, GameInputProcessor inputProcessor) {
         mViewport = viewport;
+        mInputProcessor = inputProcessor;
     }
 
     public void init() {
@@ -51,6 +55,19 @@ public class Player {
         mLastFramePosition.set(mPosition);
         boolean jumping = false;
         if (Gdx.input.isTouched()) {
+            if (mInputProcessor.shouldWalk()) {
+                if (mInputProcessor.shouldWalkLeft()) {
+                    moveLeft(delta);
+                } else {
+                    moveRight(delta);
+                }
+            } else {
+                mWalkingState = STANDING;
+            }
+            if (mInputProcessor.shouldJump()) {
+                jumping = true;
+            }
+            /*
             boolean walked = false;
             for (int i = 0; i < 20; i++) {
                 if (!Gdx.input.isTouched(i)) continue;
@@ -68,6 +85,7 @@ public class Player {
                     }
                 }
             }
+            */
         } else if (Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
             moveLeft(delta);
         } else if (Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {

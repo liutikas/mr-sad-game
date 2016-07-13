@@ -12,6 +12,7 @@ import net.liutikas.mrsad.entities.Platforms;
 import net.liutikas.mrsad.entities.Player;
 import net.liutikas.mrsad.utils.Assets;
 import net.liutikas.mrsad.utils.FollowCamera;
+import net.liutikas.mrsad.utils.GameInputProcessor;
 import net.liutikas.mrsad.utils.LevelLoader;
 
 /**
@@ -22,6 +23,7 @@ public class GameScreen implements Screen {
     private Player mPlayer;
     private Platforms mPlatforms;
     private FollowCamera mFollowCamera;
+    private GameInputProcessor mInputProcessor;
 
     SpriteBatch batch;
 
@@ -31,9 +33,11 @@ public class GameScreen implements Screen {
         Assets.instance.init(assetManager);
         batch = new SpriteBatch();
         mViewport = new ExtendViewport(Constants.WORLD_SIZE, Constants.WORLD_SIZE);
-        mPlayer = new Player(mViewport);
+        mInputProcessor = new GameInputProcessor(mViewport);
+        mPlayer = new Player(mViewport, mInputProcessor);
         mPlatforms = new Platforms(mViewport);
         mFollowCamera = new FollowCamera(mViewport.getCamera(), mPlayer);
+        Gdx.input.setInputProcessor(mInputProcessor);
     }
 
     @Override
@@ -57,6 +61,7 @@ public class GameScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         mViewport.update(width, height, true);
+        mInputProcessor.init();
         mPlayer.init();
         mPlatforms.init();
     }
