@@ -119,7 +119,7 @@ public class Player {
                 } else {
                     float walkTimeSeconds =
                             MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime);
-                    region = Assets.instance.playerAssets.walkingLeftAnimation.getKeyFrame(
+                    region = (TextureRegion) Assets.instance.playerAssets.walkingLeftAnimation.getKeyFrame(
                             walkTimeSeconds);
                 }
             } else {
@@ -132,7 +132,7 @@ public class Player {
                 } else {
                     float walkTimeSeconds =
                             MathUtils.nanoToSec * (TimeUtils.nanoTime() - mWalkStartTime);
-                    region = Assets.instance.playerAssets.walkingRightAnimation.getKeyFrame(
+                    region = (TextureRegion) Assets.instance.playerAssets.walkingRightAnimation.getKeyFrame(
                             walkTimeSeconds);
                 }
             } else {
