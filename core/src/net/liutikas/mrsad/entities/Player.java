@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import net.liutikas.mrsad.Constants;
 import net.liutikas.mrsad.utils.Assets;
 import net.liutikas.mrsad.utils.GameInputProcessor;
+import net.liutikas.mrsad.utils.Utils;
 
 /**
  * The main game character the the player will be controlling.
@@ -140,23 +141,7 @@ public class Player {
             }
         }
 
-        batch.draw(
-                region.getTexture(),
-                mPosition.x - Constants.PLAYER_TEXTURE_WIDTH / 2,
-                mPosition.y,
-                0,
-                0,
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                1,
-                1,
-                0,
-                region.getRegionX(),
-                region.getRegionY(),
-                region.getRegionWidth(),
-                region.getRegionHeight(),
-                false,
-                false);
+        Utils.drawTextureRegion(batch, region, mPosition.x - Constants.PLAYER_TEXTURE_WIDTH / 2, mPosition.y);
     }
 
     public float getPositionX() {
