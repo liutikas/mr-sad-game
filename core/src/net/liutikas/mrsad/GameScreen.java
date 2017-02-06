@@ -5,11 +5,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import net.liutikas.mrsad.entities.Platform;
 import net.liutikas.mrsad.entities.Platforms;
 import net.liutikas.mrsad.entities.Player;
+import net.liutikas.mrsad.entities.SadPill;
 import net.liutikas.mrsad.utils.Assets;
 import net.liutikas.mrsad.utils.FollowCamera;
 import net.liutikas.mrsad.utils.GameInputProcessor;
@@ -24,6 +26,7 @@ public class GameScreen implements Screen {
     private Platforms mPlatforms;
     private FollowCamera mFollowCamera;
     private GameInputProcessor mInputProcessor;
+    private SadPill mSadPill;
 
     SpriteBatch batch;
 
@@ -37,6 +40,9 @@ public class GameScreen implements Screen {
         mPlayer = new Player(mViewport, mInputProcessor);
         mPlatforms = new Platforms(mViewport);
         mFollowCamera = new FollowCamera(mViewport.getCamera(), mPlayer);
+
+        mSadPill = new SadPill(new Vector2(20, 20));
+
         Gdx.input.setInputProcessor(mInputProcessor);
     }
 
@@ -55,6 +61,7 @@ public class GameScreen implements Screen {
         batch.begin();
         mPlatforms.render(batch);
         mPlayer.render(batch);
+        mSadPill.render(batch);
         batch.end();
     }
 

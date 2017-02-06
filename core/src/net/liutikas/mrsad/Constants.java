@@ -31,6 +31,7 @@ public class Constants {
     public static final String WALKING_LEFT_1 = "player-walking-left-1";
     public static final String WALKING_LEFT_2 = "player-walking-left-2";
     public static final String WALKING_LEFT_3 = "player-walking-left-3";
+    public static final String SAD_PILL = "sad-pill";
 
     // Level Loading
     public static final String LEVEL_COMPOSITE = "composite";

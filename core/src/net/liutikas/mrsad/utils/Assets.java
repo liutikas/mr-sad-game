@@ -23,6 +23,7 @@ public class Assets implements Disposable, AssetErrorListener {
     public static final Assets instance = new Assets();
     public PlayerAssets playerAssets;
     public PlatformAssets platformAssets;
+    public SadPillAssets sadPillAssets;
 
     private AssetManager mAssetManager;
 
@@ -37,6 +38,7 @@ public class Assets implements Disposable, AssetErrorListener {
         TextureAtlas atlas = assetManager.get(Constants.TEXTURE_ATLAS);
         playerAssets = new PlayerAssets(atlas);
         platformAssets = new PlatformAssets(atlas);
+        sadPillAssets = new SadPillAssets(atlas);
     }
 
     public static class PlayerAssets {
@@ -97,6 +99,14 @@ public class Assets implements Disposable, AssetErrorListener {
                     Constants.PLATFORM_EDGE,
                     Constants.PLATFORM_EDGE,
                     Constants.PLATFORM_EDGE);
+        }
+    }
+
+    public static class SadPillAssets {
+        public final AtlasRegion sadPill;
+
+        public SadPillAssets(TextureAtlas atlas) {
+            sadPill = atlas.findRegion(Constants.SAD_PILL);
         }
     }
 }

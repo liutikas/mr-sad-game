@@ -6,78 +6,85 @@ filter: Nearest,Nearest
 repeat: none
 platform
   rotate: false
-  xy: 2, 2
+  xy: 2, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-jumping-left
   rotate: false
-  xy: 36, 2
+  xy: 36, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-jumping-right
   rotate: false
-  xy: 70, 2
+  xy: 70, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-left
   rotate: false
-  xy: 104, 2
+  xy: 104, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-right
   rotate: false
-  xy: 138, 2
+  xy: 138, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-walking-left-1
   rotate: false
-  xy: 172, 2
+  xy: 172, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-walking-left-2
   rotate: false
-  xy: 206, 2
+  xy: 206, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-walking-left-3
   rotate: false
-  xy: 240, 2
+  xy: 240, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-walking-right-1
   rotate: false
-  xy: 274, 2
+  xy: 274, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-walking-right-2
   rotate: false
-  xy: 308, 2
+  xy: 308, 22
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 player-walking-right-3
   rotate: false
-  xy: 342, 2
+  xy: 342, 22
   size: 32, 32
   orig: 32, 32
+  offset: 0, 0
+  index: -1
+sad-pill
+  rotate: false
+  xy: 2, 2
+  size: 18, 18
+  orig: 18, 18
   offset: 0, 0
   index: -1
